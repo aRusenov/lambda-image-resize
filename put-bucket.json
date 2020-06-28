@@ -1,0 +1,27 @@
+{
+  "ErrorDocument": {
+    "Key": "string"
+  },
+  "IndexDocument": {
+    "Suffix": "string"
+  },
+  "RedirectAllRequestsTo": {
+    "HostName": "string",
+    "Protocol": "http"|"https"
+  },
+  "RoutingRules": [
+    {
+      "Condition": {
+        "HttpErrorCodeReturnedEquals": "404"
+      },
+      "Redirect": {
+        "HostName": "u4fpot90rl.execute-api.eu-west-1.amazonaws.com",
+        "HttpRedirectCode": "307",
+        "Protocol": "http"|"https",
+        "ReplaceKeyPrefixWith": "string",
+        "ReplaceKeyWith": "string"
+      }
+    }
+    ...
+  ]
+}

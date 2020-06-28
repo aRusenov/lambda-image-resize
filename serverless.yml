@@ -1,15 +1,9 @@
 # serverless.yml
-service: resizeS3image
+service:
+  name: dynamic-image-resizer
 
 plugins:
-  - serverless-webpack
   - serverless-offline
-
-custom:
-  webpack:
-    webpackConfig: ./webpack.config.js
-    includeModules: true
-    packager: 'npm'
 
 package:
   include:
@@ -44,18 +38,19 @@ provider:
         - 's3:PutObjectAcl'
         - 's3:PutObject'
         - 's3:ListBucket'
-      Resource: '*'
+        - 's3:GetObject'
+      Resource: ${file(./bucket-config.js)}
 
 functions:
   handler:
-    handler: src/handler.imageprocess
-    name: resizeimage-${self:provider.stage}
+    handler: src/resizer.resizer
+    name: dynamic-image-resizer-${self:provider.stage}
     memorySize: ${file(env.yml):${self:provider.stage}.MEMORY_SIZE}
     timeout: ${file(env.yml):${self:provider.stage}.TIMEOUT}
     reservedConcurrency: ${file(env.yml):${self:provider.stage}.TIMEOUT}
     events:
       - http:
-          path: /{key+}
+          path: /{bucket}/{size}/{key}
           method: get
           integration: lambda-proxy
           cors:

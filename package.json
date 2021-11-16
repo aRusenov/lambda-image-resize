@@ -7,7 +7,7 @@
         "node": ">= 10.20.1"
     },
     "dependencies": {
-        "aws-sdk": "^2.662.0",
+        "aws-sdk": "^2.814.0",
         "imagemagick": "^0.1.3",
         "sharp": "^0.25.4"
     },
